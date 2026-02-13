@@ -1,115 +1,129 @@
-const fs = require("fs-extra");
-const path = require("path");
-const https = require("https");
+const axios = require("axios");
+const { getPrefix } = global.utils;
+const { commands } = global.GoatBot;
+
+let xfont = null;
+let yfont = null;
+let categoryEmoji = null;
+
+async function loadResources() {
+  try {
+    const [x, y, c] = await Promise.all([
+      axios.get("https://raw.githubusercontent.com/Saim-x69x/sakura/main/xfont.json"),
+      axios.get("https://raw.githubusercontent.com/Saim-x69x/sakura/main/yfont.json"),
+      axios.get("https://raw.githubusercontent.com/Saim-x69x/sakura/main/category.json")
+    ]);
+    xfont = x.data;
+    yfont = y.data;
+    categoryEmoji = c.data;
+  } catch (e) {
+    console.error("[HELP] Resource load failed");
+  }
+}
+
+function fontConvert(text, type = "command") {
+  const map = type === "category" ? xfont : yfont;
+  if (!map) return text;
+  return text.split("").map(c => map[c] || c).join("");
+}
+
+function getCategoryEmoji(cat) {
+  return categoryEmoji?.[cat.toLowerCase()] || "⦿";
+}
+
+function roleText(role) {
+  if (role === 0) return "👤 User";
+  if (role === 1) return "👑 Group Admin";
+  if (role === 2) return "🤖 Bot Admin";
+  return "Unknown";
+}
+
+function findCommand(name) {
+  name = name.toLowerCase();
+  for (const [, cmd] of commands) {
+    const a = cmd.config?.aliases;
+    if (cmd.config?.name === name) return cmd;
+    if (Array.isArray(a) && a.includes(name)) return cmd;
+    if (typeof a === "string" && a === name) return cmd;
+  }
+  return null;
+}
 
 module.exports = {
   config: {
     name: "help",
-    aliases: ["menu", "commands"],
-    version: "5.0",
-    author: "AKASH",
-    shortDescription: "Show all commands",
-    longDescription: "Show all commands in fancy font with boxes",
-    category: "system",
-    guide: "{pn}help [command name]"
+    aliases: ["menu"],
+    version: "2.5",
+    author: "Saimx69x | fixed milon",
+    role: 0,
+    category: "info",
+    shortDescription: "Show all commands in one list",
+    guide: {
+      en: "{pn} or {pn} [command]"
+    }
   },
 
-  onStart: async function({ message, args, prefix }) {
-    const allCommands = global.GoatBot.commands;
-    const categories = {};
+  onStart: async function ({ message, args, event, role }) {
+    if (!xfont || !yfont || !categoryEmoji) await loadResources();
 
-    // Command font (𝐀𝐀𝐀𝐀𝐁𝐁 style)
-    const fancyFont = (str) => str.replace(/[A-Za-z]/g, (c) => {
-      const map = {
-        A:"𝐀", B:"𝐁", C:"𝐂", D:"𝐃", E:"𝐄", F:"𝐅", G:"𝐆", H:"𝐇",
-        I:"𝐈", J:"𝐉", K:"𝐊", L:"𝐋", M:"𝐌", N:"𝐍", O:"𝐎", P:"𝐏",
-        Q:"𝐐", R:"𝐑", S:"𝐒", T:"𝐓", U:"𝐔", V:"𝐕", W:"𝐖", X:"𝐗",
-        Y:"𝐘", Z:"𝐙",
-        a:"𝐚", b:"𝐛", c:"𝐜", d:"𝐝", e:"𝐞", f:"𝐟", g:"𝐠", h:"𝐡",
-        i:"𝐢", j:"𝐣", k:"𝐤", l:"𝐥", m:"𝐦", n:"𝐧", o:"𝐨", p:"𝐩",
-        q:"𝐪", r:"𝐫", s:"𝐬", t:"𝐭", u:"𝐮", v:"𝐯", w:"𝐰", x:"𝐱",
-        y:"𝐲", z:"𝐳"
-      };
-      return map[c] || c;
-    });
+    const prefix = getPrefix(event.threadID);
+    const input = args.join(" ").trim();
 
-    // Category font (𝚂𝚈𝚂𝚃𝙴𝙼 style) for ALL categories
-    const categoryFont = (str) => str.split("").map(c => {
-      const map = {
-        A:"𝙰", B:"𝙱", C:"𝙲", D:"𝙳", E:"𝙴", F:"𝙵", G:"𝙶", H:"𝙷",
-        I:"𝙸", J:"𝙹", K:"𝙺", L:"𝙻", M:"𝙼", N:"𝙽", O:"𝙾", P:"𝙿",
-        Q:"𝚀", R:"𝚁", S:"𝚂", T:"𝚃", U:"𝚄", V:"𝚅", W:"𝚆", X:"𝚇",
-        Y:"𝚈", Z:"𝚉",
-        a:"𝚊", b:"𝚋", c:"𝚌", d:"𝚍", e:"𝚎", f:"𝚏", g:"𝚐", h:"𝚑",
-        i:"𝚒", j:"𝚓", k:"𝚔", l:"𝚕", m:"𝚖", n:"𝚗", o:"𝚘", p:"𝚙",
-        q:"𝚚", r:"𝚛", s:"𝚜", t:"𝚝", u:"𝚞", v:"𝚟", w:"𝚠", x:"𝚡",
-        y:"𝚢", z:"𝚣"
-      };
-      return map[c] || c;
-    }).join("");
-
-    const cleanCategoryName = (text) => text ? text.toLowerCase() : "others";
-
-    // Categorize commands
-    for (const [name, cmd] of allCommands) {
-      const cat = cleanCategoryName(cmd.config.category);
-      if (!categories[cat]) categories[cat] = [];
-      categories[cat].push(name);
+    // Collect all commands and group by category
+    const categoriesMap = {};
+    for (const [name, cmd] of commands) {
+      if (!cmd?.config || cmd.config.role > role) continue;
+      const cat = (cmd.config.category || "UNCATEGORIZED").toLowerCase();
+      if (!categoriesMap[cat]) categoriesMap[cat] = [];
+      categoriesMap[cat].push(name);
     }
 
-    // Format commands **inside the box**
-    const formatCommandsBox = (cmds) =>
-      cmds.sort().map(c => `│  │ ⎙ ${fancyFont(c)}`).join("\n");
+    /* ───── Single Command Info View ───── */
+    if (input) {
+      const cmd = findCommand(input);
+      if (cmd) {
+        const c = cmd.config;
+        let usage = "No usage guide";
+        if (c.guide) {
+          usage = typeof c.guide === "object" ? (c.guide.en || Object.values(c.guide)[0]) : c.guide;
+          usage = usage.replace(/{pn}/g, `${prefix}${c.name}`);
+        }
 
-    // Build message
-    let msg = `│\n│  ${fancyFont("COMMANDS MENU")}\n│  ───────────────\n`;
-    msg += `│  ${fancyFont("PREFIX")} : ${prefix}\n`;
-    msg += `│  ${fancyFont("TOTAL")}  : ${allCommands.size}\n`;
-    msg += `│  ${fancyFont("AUTHOR")} : rafi\n│\n`;
+        const infoMsg = `⚡️ 𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗜𝗡𝗙𝗢 ⚡️
+━━━━━━━━━━━━━━━━━━
+🗡️ 𝗡𝗮𝗺𝗲 » ${c.name}
+📝 𝗗𝗲𝘀𝗰 » ${c.longDescription || c.shortDescription || "N/A"}
+🧩 𝗨𝘀𝗮𝗴𝗲 » ${usage}
+📦 𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆 » ${c.category.toUpperCase()}
+⏱️ 𝗖𝗼𝗼𝗹𝗱𝗼𝘄𝗻 » ${c.countDown || 5}s
+🔒 𝗣𝗲𝗿𝗺𝗶𝘀𝘀𝗶𝗼𝗻 » ${roleText(c.role)}
+✨ 𝗖𝗿𝗲𝗱𝗶𝘁𝘀 » ${c.author || "𝗠𝗶𝗹𝗼𝗻 𝗛𝗮𝘀𝗮𝗻"}`;
 
-    for (const cat of Object.keys(categories)) {
-      msg += `│  ┌─ ${categoryFont(cat.toUpperCase())} ─┐\n`;
-      msg += formatCommandsBox(categories[cat]) + "\n";
-      msg += `│  └─────────────┘\n│\n`;
+        return message.reply(infoMsg);
+      }
     }
 
-    msg += `│  𝐔𝐒𝐄 : ${prefix}help <command>\n│`;
+    /* ───── All Commands List (No Page) ───── */
+    let msg = `✨ 𝗥 𝗔 𝗙 𝗜 ✦  𝗖 𝗢 𝗠 𝗠 𝗔 𝗡 𝗗 𝗦 ✨\n`;
+    msg += `✧･ﾟ: *✧･ﾟ:* ༻ ༺ *:･ﾟ✧*:･ﾟ✧\n\n`;
 
-    // GIFs array
-    const gifURLs = [
-      "https://i.imgur.com/Xw6JTfn.gif",
-      "https://i.imgur.com/mW0yjZb.gif",
-      "https://i.imgur.com/KQBcxOV.gif"
-    ];
-    const randomGifURL = gifURLs[Math.floor(Math.random() * gifURLs.length)];
-    const gifFolder = path.join(__dirname, "cache");
-    if (!fs.existsSync(gifFolder)) fs.mkdirSync(gifFolder, { recursive: true });
-    const gifName = path.basename(randomGifURL);
-    const gifPath = path.join(gifFolder, gifName);
+    const sortedCategories = Object.keys(categoriesMap).sort();
 
-    if (!fs.existsSync(gifPath)) await downloadGif(randomGifURL, gifPath);
+    for (const cat of sortedCategories) {
+      const catDisplay = fontConvert(cat.toUpperCase(), "category");
+      const emoji = getCategoryEmoji(cat);
+      const cmds = categoriesMap[cat].sort().map(n => fontConvert(n)).join(", ");
 
-    return message.reply({
-      body: msg,
-      attachment: fs.createReadStream(gifPath)
-    });
+      msg += `${emoji} ━━━━『 ${catDisplay} 』━━━━ ⦿\n`;
+      msg += `│  ${cmds}\n`;
+      msg += `✧･ﾟ: *✧･ﾟ:* *:･ﾟ✧*:･ﾟ✧\n\n`;
+    }
+
+    const totalCmds = Object.values(categoriesMap).reduce((a, b) => a + b.length, 0);
+
+    msg += `🔰 𝗧𝗶𝗽: 𝗧𝘆𝗽𝗲 ${prefix}𝗵𝗲𝗹𝗽 [𝗰𝗼𝗺𝗺𝗮𝗻𝗱]\n\n`;
+    msg += `🗡️ 𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗦𝗬𝗦𝗧𝗘𝗠 🗡️\n𝗧𝗼𝘁𝗮𝗹 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 » ${totalCmds}\n𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝗶𝗲𝘀 » ${sortedCategories.length}\n👑 Owner: 𝙍𝘼𝙁𝙄 𝘽𝙃𝘼𝙄✓`;
+
+    return message.reply(msg);
   }
 };
-
-// Download GIF function
-function downloadGif(url, dest) {
-  return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest);
-    https.get(url, (res) => {
-      if (res.statusCode !== 200) {
-        fs.unlink(dest, () => {});
-        return reject(new Error(`Failed to download '${url}' (${res.statusCode})`));
-      }
-      res.pipe(file);
-      file.on("finish", () => file.close(resolve));
-    }).on("error", (err) => {
-      fs.unlink(dest, () => {});
-      reject(err);
-    });
-  });
-}
