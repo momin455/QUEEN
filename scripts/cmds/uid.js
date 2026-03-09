@@ -179,7 +179,7 @@ module.exports = {
       ctx.font = "25px Courier New";
       ctx.shadowBlur = 0;
       ctx.fillText("/// IDENTITY VERIFIED /// ", 480, 330);
-      ctx.fillText("⚡ POWERED BY: Rafii6x9", 480, 370);
+      ctx.fillText("⚡ POWERED BY: FARHAN-KHAN", 480, 370);
 
 
       // Decorative Bar Code Lines
