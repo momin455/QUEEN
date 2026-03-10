@@ -21,10 +21,10 @@ const last = {};
 // =======================
 const TRIGGERS = [
   {
-    words: ["জানু"],
-    text: "Jan ami Onek Horny Hoye achi 🫦🥺",
+    words: ["@〲Dʌʀĸ᭄ ヾ ꜛxʌɪĸoꜛッ༒"],
+    text: "👉আমার বস♻️ 𝐑𝐉 𝐅𝐀𝐑𝐇𝐀𝐍 এখন বিজি আছে । তার ইনবক্সে এ মেসেজ দিয়ে রাখো ‎‎‎‎‎‎‎‎‎[https://www.facebook.com/DEVIL.FARHAN.420] 🔰 ♪√বস ফ্রি হলে আসবে,! 😜🐒",
     images: [
-      "https://i.imgur.com/SC2bxJP.jpeg"
+      "https://i.imgur.com/skOXv81.jpeg"
     ]
   },
   {
