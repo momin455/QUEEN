@@ -66,6 +66,8 @@ longDescription: "One emoji triggers multiple voices, sent randomly 😘",
       "😓": ["https://files.catbox.moe/zh3mdg.mp3"],
       "🤧": ["https://files.catbox.moe/zh3mdg.mp3"],
       "🙄": ["https://files.catbox.moe/vgzkeu.mp3"],
+      "😂": ["https://files.catbox.moe/0nxy8i.mp4"],
+      "😚": ["https://files.catbox.moe/qrv31r.mp3"],
       "🫶":
 ["https://files.catbox.moe/egturw.mp3"],
       "👍":
