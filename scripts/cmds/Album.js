@@ -1,124 +1,142 @@
 const axios = require("axios");
-const fs = require("fs");
+const FormData = require("form-data");
+const fs = require("fs-extra");
 const path = require("path");
-
-const apiJsonUrl = "https://raw.githubusercontent.com/goatbotnx/Sexy-nx2.0Updated/refs/heads/main/nx-apis.json"; 
-const ADMIN_UID = "61583129938292";
 
 module.exports = {
   config: {
     name: "album",
-    aliases: ["gallery", "alb"],
-    version: "7.0",
-    author: "xalman", 
+    aliases: ["album"],
+    version: "1.1",
+    author: "Saimx69x",
+    countDown: 2,
     role: 0,
-    category: "media",
-    shortDescription: "🌸 Dynamic Album with Auto-Unsend",
-    guide: "{p}album [page]"
+    description: "Reply with a number to get a video, or reply to a video with /animealbum add <category>",
+    category: "media"
   },
+
+/* --- [ 🔐 FILE_CREATOR_INFORMATION ] ---
+ * 🤖 BOT NAME: FARHAN BOT
+ * 👤 OWNER: FARHAN KHAN 
+ * 🔗 FACEBOOK: https://www.facebook.com/DARK.XAIKO.420
+ * 🛠️ PROJECT: FARHAN BOT PROJECT (2026)
+ * --------------------------------------- */
 
   onStart: async function ({ message, event, args }) {
     try {
-      const apiListResponse = await axios.get(apiJsonUrl);
-      const BASE_API = apiListResponse.data.album;
+      const apiJsonUrl = "https://raw.githubusercontent.com/Saim-x69x/sakura/main/ApiUrl.json";
+      const apiRes = await axios.get(apiJsonUrl);
+      const baseUrl = apiRes.data.apiv1;
 
-      const catRes = await axios.get(`${BASE_API}/categories`);
-      const allCategories = catRes.data.categories;
+      // ---- ADD VIDEO LOGIC ----
+      if (args[0]?.toLowerCase() === "add") {
+        const category = args[1]?.toLowerCase();
+        if (!category) {
+          return message.reply("❌ 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲 𝐢𝐬 𝐫𝐞𝐪𝐮𝐢𝐫𝐞𝐝!\n✨ 𝐔𝐬𝐚𝐠𝐞: /𝐚𝐧𝐢𝐦𝐞𝐚𝐥𝐛𝐮𝐦 𝐚𝐝𝐝 <𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲>");
+        }
+        if (!event.messageReply || !event.messageReply.attachments?.length) {
+          return message.reply("❌ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐭𝐨 𝐚 𝐯𝐢𝐝𝐞𝐨 𝐭𝐨 𝐚𝐝𝐝 𝐢𝐭.");
+        }
 
-      if (!allCategories || allCategories.length === 0) {
-        return message.reply("⚠️ No categories found in API.");
+        const attachment = event.messageReply.attachments[0];
+        if (!attachment.type.includes("video")) {
+          return message.reply("❌ 𝐓𝐡𝐞 𝐫𝐞𝐩𝐥𝐢𝐞𝐝 𝐟𝐢𝐥𝐞 𝐢𝐬 𝐧𝐨𝐭 𝐚 𝐯𝐢𝐝𝐞𝐨.");
+        }
+
+        const videoUrl = attachment.url;
+        const cachePath = path.join(process.cwd(), "cache");
+        if (!fs.existsSync(cachePath)) fs.ensureDirSync(cachePath);
+        const videoFilePath = path.join(cachePath, `temp_${Date.now()}.mp4`);
+
+        const videoResp = await axios.get(videoUrl, { responseType: "stream" });
+        const writer = fs.createWriteStream(videoFilePath);
+        videoResp.data.pipe(writer);
+
+        await new Promise((resolve, reject) => {
+          writer.on("finish", resolve);
+          writer.on("error", reject);
+        });
+
+        const form = new FormData();
+        form.append("reqtype", "fileupload");
+        form.append("fileToUpload", fs.createReadStream(videoFilePath));
+
+        const catboxResp = await axios.post("https://catbox.moe/user/api.php", form, {
+          headers: form.getHeaders(),
+        });
+
+        if (fs.existsSync(videoFilePath)) fs.unlinkSync(videoFilePath);
+        const catboxUrl = catboxResp.data.trim();
+
+        const apiURL = `${baseUrl}/api/albumadd?category=${encodeURIComponent(category)}&url=${encodeURIComponent(catboxUrl)}`;
+        const apiResp2 = await axios.get(apiURL);
+        
+        return message.reply(`${apiResp2.data.message}\n🔗 ${apiResp2.data.url}`);
       }
 
-      const itemsPerPage = 8;
-      const totalPages = Math.ceil(allCategories.length / itemsPerPage);
-      let page = parseInt(args[0]) || 1;
+      // ---- LIST ALBUM LOGIC ----
+      const listUrl = "https://raw.githubusercontent.com/Saim-x69x/sakura/main/anialbumcategory.json";
+      const res = await axios.get(listUrl);
+      const displayNames = res.data.display;
+      const realCategories = res.data.real;
 
-      if (page < 1) page = 1;
-      if (page > totalPages) page = totalPages;
+      const itemsPerPage = 10;
+      const page = parseInt(args[0]) || 1;
+      const totalPages = Math.ceil(displayNames.length / itemsPerPage);
+
+      if (page < 1 || page > totalPages) {
+        return message.reply(`❌ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐩𝐚𝐠𝐞! (1-${totalPages})`);
+      }
 
       const startIndex = (page - 1) * itemsPerPage;
-      const currentPageCategories = allCategories.slice(startIndex, startIndex + itemsPerPage);
+      const categoriesToShow = displayNames.slice(startIndex, startIndex + itemsPerPage);
 
-      const fancy = (t) => t.replace(/[a-z]/g, c => String.fromCodePoint(0x1d400 + c.charCodeAt(0) - 97));
-      const numStyle = (n) => String(n).replace(/[0-9]/g, d => String.fromCodePoint(0x1d7ec + Number(d)));
-
-      let menuText = `╔═══════ ✦ 𝐀𝐋𝐁𝐔𝐌 ✦ ═══════╗\n`;
-      currentPageCategories.forEach((cat, index) => {
-        menuText += `✦✨ ${numStyle(index + 1)} ┊ ${fancy(cat)}\n`;
+      let text = "🎥 𝐀𝐍𝐈𝐌𝐄 𝐀𝐋𝐁𝐔𝐌 𝐕𝐈𝐃𝐄𝐎𝐒\n━━━━━━━━━━━━━━━━━\n";
+      categoriesToShow.forEach((cat, i) => {
+        text += `│⌯ ${startIndex + i + 1}. ${cat}\n`;
       });
-      menuText += `╚══════════════════════════╝\n`;
-      menuText += `📖 𝐏𝐚𝐠𝐞 ${numStyle(page)} / ${numStyle(totalPages)}\n`;
-      
-      if (page < totalPages) {
-        menuText += `➕ Type: album ${page + 1} for next page`;
-      } else if (totalPages > 1) {
-        menuText += `↩️ Type: album 1 to return to start`;
-      }
+      text += `━━━━━━━━━━━━━━━━━\n📄 𝐏𝐚𝐠𝐞: ${page}/${totalPages}\n🎯 𝐑𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐚 𝐧𝐮𝐦𝐛𝐞𝐫`;
 
-      return message.reply(menuText, (err, info) => {
-        // ৬০ সেকেন্ড পর অটো আনসেন্ড করার টাইমার
-        setTimeout(() => {
-            message.unsend(info.messageID);
-        }, 60000);
-
-        global.GoatBot.onReply.set(info.messageID, {
-          commandName: "album",
-          author: event.senderID,
-          categories: currentPageCategories,
-          BASE_API: BASE_API,
-          messageID: info.messageID
-        });
+      const sent = await message.reply(text);
+      global.GoatBot.onReply.set(sent.messageID, {
+        commandName: this.config.name,
+        author: event.senderID,
+        startIndex,
+        endIndex: startIndex + itemsPerPage,
+        displayNames,
+        realCategories,
+        listMsgID: sent.messageID,
+        baseUrl
       });
-
-    } catch (err) {
-      console.error(err);
-      return message.reply("⚠️ Connection error! Please check if your API is online.");
+    } catch (e) {
+      console.error(e);
+      return message.reply("⚠️ 𝐀𝐧 𝐮𝐧𝐞𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐞𝐫𝐫𝐨𝐫 𝐨𝐜𝐜𝐮𝐫𝐫𝐞𝐝.");
     }
   },
 
-  onReply: async function ({ message, event, Reply }) {
-    const { author, categories, BASE_API, messageID } = Reply;
-    if (event.senderID !== author) return message.reply("⛔ This menu is not for you.");
+  onReply: async function ({ message, Reply, event }) {
+    if (event.senderID !== Reply.author) return;
+    const num = parseInt(event.body.trim());
+    const index = num - 1;
 
-    const pick = parseInt(event.body);
-    if (isNaN(pick)) return message.reply("🔢 Please reply with a valid number.");
-    if (pick < 1 || pick > categories.length) return message.reply("❌ Invalid selection.");
-
-    // ইউজার রিপ্লাই দেওয়ার সাথে সাথে লিস্টটি আনসেন্ড করে দেওয়া
-    message.unsend(messageID);
-
-    const category = categories[pick - 1];
-    const restricted = ["hot", "horny"];
-    
-    if (restricted.includes(category.toLowerCase()) && event.senderID !== ADMIN_UID) {
-        return message.reply("ছি তুমি এখনো ভালো হলে না 🫢🙏");
+    if (isNaN(num) || index < Reply.startIndex || index >= Reply.endIndex) {
+      return message.reply("❌ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐧𝐮𝐦𝐛𝐞𝐫.");
     }
 
     try {
-      message.reply(`Please wait... Loading ${category} ✨`);
+      message.unsend(Reply.listMsgID).catch(() => {});
+      const category = Reply.realCategories[index];
+      const link = `${Reply.baseUrl}/api/album?category=${category}`;
+      const res = await axios.get(link);
 
-      const res = await axios.get(`${BASE_API}/album?type=${category}`);
-      const mediaUrl = res.data.data;
+      if (!res.data?.url) return message.reply("⚠️ 𝐅𝐚𝐢𝐥𝐞𝐝 𝐭𝐨 𝐟𝐞𝐭𝐜𝐡 𝐯𝐢𝐝𝐞𝐨.");
 
-      if (!mediaUrl) return message.reply("❌ No content found for this category.");
-
-      const ext = mediaUrl.split(".").pop().split("?")[0] || "mp4";
-      const filePath = path.join(__dirname, "cache", `album_${Date.now()}.${ext}`);
-
-      const response = await axios({ url: mediaUrl, method: 'GET', responseType: 'stream' });
-      const writer = fs.createWriteStream(filePath);
-      response.data.pipe(writer);
-
-      writer.on("finish", () => {
-        message.reply({
-          body: `✦ 𝐀𝐋𝐁𝐔𝐌 𝐃𝐄𝐋𝐈𝐕𝐄𝐑𝐄𝐃 ✦\n💖 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲 : ${category}\n👑 𝐎𝐰𝐧𝐞𝐫 : -Rꫝғɪɪ 6x9`,
-          attachment: fs.createReadStream(filePath)
-        }, () => {
-          if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-        });
+      await message.reply({
+        body: `🎬 𝐘𝐎𝐔𝐑 𝐕𝐈𝐃𝐄𝐎 𝐈𝐒 𝐑𝐄𝐀𝐃𝐘!\n📂 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲 ➤ ${Reply.displayNames[index]}\n✨ 𝐄𝐧𝐣𝐨𝐲!`,
+        attachment: await global.utils.getStreamFromURL(res.data.url)
       });
-    } catch (err) {
-      message.reply("⚠️ Failed to download or send media.");
+    } catch (e) {
+      return message.reply("❌ 𝐄𝐫𝐫𝐨𝐫 𝐰𝐡𝐢𝐥𝐞 𝐬𝐞𝐧𝐝𝐢𝐧𝐠 𝐯𝐢𝐝𝐞𝐨.");
     }
   }
 };
