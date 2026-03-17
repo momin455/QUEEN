@@ -6,7 +6,7 @@ let xfont = null;
 let yfont = null;
 let categoryEmoji = null;
 
-const HELP_GIF = "https://i.postimg.cc/mrzwcJsh/GIF-20250712-114810-632.gif";
+const HELP_GIF = "https://files.catbox.moe/6g3069.mp4";
 
 /* ───── Load Fonts & Emoji ───── */
 async function loadResources() {
