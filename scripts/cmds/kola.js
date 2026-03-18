@@ -6,23 +6,37 @@ const { createCanvas, loadImage } = require("canvas");
 module.exports = {
   config: {
     name: "kola",
-    version: "2.8.0",
+    version: "2.9.2",
     author: "Milon Pro",
     countDown: 5,
     role: 0,
     category: "fun",
-    description: "Create a collage image with face-shaped pfp shifted slightly higher.",
+    usePrefix: true,
+    description: "Create a funny collage. Admins use without prefix.",
     guide: {
-        en: "{pn} @mention or reply"
+        en: "kola @mention or reply"
     }
   },
 
 /* --- [ 🔐 FILE_CREATOR_INFORMATION ] ---
- * 🤖 BOT NAME: MILON BOT
- * 👤 OWNER: MILON HASAN 
+ * 🤖 BOT NAME: ⎯⎯༢ 𝗤͜͡𝗨𝗘𝗘⃟𝗡 ⊰
+ * 👤 OWNER: ARIFUL
  * 📍 LOCATION: NARAYANGANJ, BANGLADESH
  * 🛠️ PROJECT: MILON BOT PROJECT (2026)
  * --------------------------------------- */
+
+  onChat: async function ({ api, event, message, commandName }) {
+    const { body, senderID } = event;
+    if (!body) return;
+
+    const adminIDs = global.GoatBot.config.adminBot || [];
+    const isBotAdmin = adminIDs.includes(senderID);
+    const args = body.toLowerCase().split(" ");
+
+    if (isBotAdmin && (args[0] === "kola")) {
+        return this.onStart({ api, event, message, commandName });
+    }
+  },
 
   onStart: async function ({ api, event, message }) {
     const { threadID, messageID, mentions, messageReply } = event;
@@ -42,6 +56,9 @@ module.exports = {
     api.setMessageReaction("⏳", messageID, () => {}, true);
 
     try {
+      const userInfo = await api.getUserInfo(targetID);
+      const userName = userInfo[targetID]?.name || "User";
+
       const imgLink = "https://i.imgur.com/iNV52mX.jpeg"; 
       const filePath = path.join(cacheDir, `kola_milon_${Date.now()}.png`);
 
@@ -62,7 +79,6 @@ module.exports = {
       const pfpWidth = 130;  
       const pfpHeight = 170; 
       const x = (canvas.width / 2) - (pfpWidth / 2) + 25; 
-      // সামান্য উপরে তোলার জন্য -80 থেকে বাড়িয়ে -110 করলাম
       const y = (canvas.height / 2) - (pfpHeight / 2) - 110; 
 
       ctx.save();
@@ -70,11 +86,9 @@ module.exports = {
       ctx.ellipse(x + pfpWidth / 2, y + pfpHeight / 2, pfpWidth / 2, pfpHeight / 2, 0, 0, Math.PI * 2);
       ctx.closePath();
       ctx.clip();
-      
       ctx.drawImage(targetPfp, x, y, pfpWidth, pfpHeight); 
       ctx.restore();
 
-      // বর্ডার (সাদা ফেস আউটলাইন)
       ctx.beginPath();
       ctx.ellipse(x + pfpWidth / 2, y + pfpHeight / 2, pfpWidth / 2, pfpHeight / 2, 0, 0, Math.PI * 2);
       ctx.lineWidth = 5;
@@ -86,8 +100,12 @@ module.exports = {
 
       api.setMessageReaction("✅", messageID, () => {}, true);
 
+      // --- [ ✍️ FUNNY DIALOGUE LIKE HIJLA FILE ] ---
+      const finalCaption = `ঐ দেখ মামা, এরে চিনতে পারস কি না! 😂\n\nনাম: ${userName} 🎭\nমামা, ইজ্জত যা ছিল সব তো শেষ! 👏💃`;
+
       return api.sendMessage({
-        body: `এই দেখো কলা যেভাবে চুষে, মনে হয় বাপের জন্মেও কলা খায় নাই!😒🤣`,
+        body: finalCaption,
+        mentions: [{ tag: userName, id: targetID }],
         attachment: fs.createReadStream(filePath)
       }, threadID, () => {
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
@@ -96,7 +114,7 @@ module.exports = {
     } catch (e) {
       console.error("KOLA ERROR:", e);
       api.setMessageReaction("❌", messageID, () => {}, true);
-      return message.reply("মামা এরর হইছে! ক্যানভাস চেক করো। ❌");
+      return message.reply("মামা ঝামেলা হইছে, ওরে কলা খাওয়ানো গেল না! ❌");
     }
   }
 };
