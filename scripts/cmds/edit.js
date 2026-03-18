@@ -1,63 +1,86 @@
 const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
 
 module.exports = {
-config: {
-name: "edit",
-aliases: ["imgedit"],
-version: "2.4",
-author: "Neoaz ゐ", //API by RIFAT
-countDown: 15,
-role: 0,
-shortDescription: { en: "Edit image with Seedream V4" },
-longDescription: { en: "Edit or modify an existing image using Seedream V4 Edit AI model" },
-category: "image",
-guide: {
-en: "Reply to an image with: {pn} <prompt>"
-}
-},
+  config: {
+    name: "edit",
+    aliases: ["nedit", "edit2"],
+    version: "1.6",
+    author: "Neoaz ゐ",
+    countDown: 15,
+    role: 0,
+    shortDescription: { en: "Edit image with Nano AI" },
+    longDescription: { en: "Edit image using Nano AI with enhanced stability" },
+    category: "image",
+    guide: {
+      en: "{pn} <prompt> --ratio <1:1|4:3|3:2|16:9>"
+    }
+  },
 
-onStart: async function ({ message, event, api, args }) {
-const hasPhotoReply = event.type === "message_reply" && event.messageReply?.attachments?.[0]?.type === "photo";
+  onStart: async function ({ message, event, api, args }) {
+    const hasPhotoReply = event.type === "message_reply" && event.messageReply?.attachments?.[0]?.type === "photo";
 
-if (!hasPhotoReply) {
-return message.reply("Please reply to an image to edit.");
-}
+    if (!hasPhotoReply) {
+      return message.reply("Please reply to an image to edit.");
+    }
 
-const prompt = args.join(" ").trim();
-if (!prompt) {
-return message.reply("Please provide a prompt.");
-}
+    const input = args.join(" ");
+    if (!input) return message.reply("Please provide a prompt.");
 
-const model = "seedream v4 edit";
-const imageUrl = event.messageReply.attachments[0].url;
+    const ratioMatch = input.match(/--ratio\s+(1:1|4:3|3:2|16:9)/);
+    const ratio = ratioMatch ? ratioMatch[1] : "1:1";
+    const prompt = input.replace(/--ratio\s+(1:1|4:3|3:2|16:9)/, "").trim();
 
-try {
-api.setMessageReaction("⏳", event.messageID, () => {}, true);
+    const imageUrl = event.messageReply.attachments[0].url;
+    const cacheDir = path.join(__dirname, "cache");
+    const cachePath = path.join(cacheDir, `edit_${Date.now()}.png`);
 
-const res = await axios.get("https://fluxcdibai-1.onrender.com/generate", {
-params: { prompt, model, imageUrl },
-timeout: 120000
-});
+    try {
+      api.setMessageReaction("⏳", event.messageID, () => {}, true);
 
-const data = res.data;
-const resultUrl = data?.data?.imageResponseVo?.url;
+      const res = await axios.get("https://rifatapiv3.vercel.app/api/ai-image/nano", {
+        params: { 
+          url: imageUrl, 
+          p: prompt,
+          ratio: ratio
+        },
+        timeout: 180000
+      });
 
-if (!resultUrl) {
-api.setMessageReaction("❌", event.messageID, () => {}, true);
-return message.reply("Failed to edit image.");
-}
+      const resultUrl = res.data?.result;
 
-api.setMessageReaction("✅", event.messageID, () => {}, true);
+      if (!resultUrl || res.data.status !== "success") {
+        api.setMessageReaction("❌", event.messageID, () => {}, true);
+        return message.reply("Failed to edit image. Server might be busy.");
+      }
 
-await message.reply({
-body: "Image edited 🐦",
-attachment: await global.utils.getStreamFromURL(resultUrl)
-});
+      await fs.ensureDir(cacheDir);
 
-} catch (err) {
-console.error(err);
-api.setMessageReaction("❌", event.messageID, () => {}, true);
-return message.reply("Error while editing image.");
-}
-}
+      const imageRes = await axios.get(resultUrl, {
+        responseType: 'arraybuffer',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+        }
+      });
+
+      await fs.writeFile(cachePath, Buffer.from(imageRes.data));
+
+      api.setMessageReaction("✅", event.messageID, () => {}, true);
+
+      await message.reply({
+        body: `Prompt: ${prompt}\nRatio: ${ratio}`,
+        attachment: fs.createReadStream(cachePath)
+      });
+
+    } catch (err) {
+      api.setMessageReaction("❌", event.messageID, () => {}, true);
+      const errorDetail = err.response?.status === 500 ? "API Server Error (500)" : err.message;
+      return message.reply(`Error: ${errorDetail}`);
+    } finally {
+      if (fs.existsSync(cachePath)) {
+        setTimeout(() => fs.remove(cachePath).catch(() => {}), 10000);
+      }
+    }
+  }
 };
