@@ -15,7 +15,7 @@ guide: "{pn}"
 },
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- * 🔐 [ FILE CREATOR INFORMATION - SIZUKA BOT ]
+ * 🔐 [ FILE CREATOR INFORMATION-SIZUKA BOT ]
  * 👤 OWNER    : FARHAN KHAN
  * 🆔 UID      : 61583610247347
  * 🔗 FACEBOOK : https://www.facebook.com/DEVIL.FARHAN.420
