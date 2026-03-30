@@ -7,27 +7,32 @@ module.exports = {
     name: "prefix2",
     version: "1.0",
     author: "Farhan-Khan", // ⚠️ DO NOT CHANGE
-    countDown: 5,
     role: 0,
+    countDown: 5,
     shortDescription: "Islamic quotes",
-    longDescription: "Send random Islamic quote with image",
+    longDescription: "Sends a random Islamic quote with image",
     category: "fun"
   },
 
   onStart: async function({ message, __GLOBAL }) {
-
-    // 🔒 Author lock
-    if (module.exports.config.author !== "Farhan-Khan") {
-      return message.reply("⚠️ Author change detected!");
-    }
-
     try {
-      // Get bot prefix from config
-      const prefix = __GLOBAL.config?.PREFIX || "";
+      // 🔒 Author lock
+      if (module.exports.config.author !== "Farhan-Khan") {
+        return message.reply("⚠️ Author change detected!");
+      }
 
-      // Only trigger if message is exactly the prefix
-      const msgText = (message.body || "").trim();
+      // Get prefix safely
+      const prefix = (__GLOBAL?.config?.PREFIX) || "/";
+
+      // Get message text safely
+      const msgText = (message.body || message.text || "").trim();
+
+      // Trigger only if message equals prefix
       if (msgText !== prefix) return;
+
+      // Ensure cache folder exists
+      const cachePath = path.join(__dirname, "cache");
+      if (!fs.existsSync(cachePath)) fs.mkdirSync(cachePath);
 
       // Random quotes
       const quotes = [
@@ -74,7 +79,7 @@ module.exports = {
       const quote = quotes[Math.floor(Math.random() * quotes.length)];
       const imgUrl = images[Math.floor(Math.random() * images.length)];
 
-      const filePath = path.join(__dirname, "cache", `${Date.now()}.jpg`);
+      const filePath = path.join(cachePath, `${Date.now()}.jpg`);
       const res = await axios.get(imgUrl, { responseType: "arraybuffer" });
       fs.writeFileSync(filePath, res.data);
 
@@ -86,7 +91,7 @@ module.exports = {
       fs.unlinkSync(filePath);
 
     } catch (err) {
-      console.log(err);
+      console.error(err);
       message.reply("❌ Error!");
     }
   }
