@@ -26,7 +26,7 @@ module.exports = {
 ‎╔══════════════════╗
 ‎║👉-এই নাও বস ফারহান এর 𝙂𝙄𝙏𝙃𝙐𝘽 𝘼𝘾𝘾𝙊𝙐𝙉𝙏  লিংক ফলো করে দিও-♻️👇
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
-       ‎[>https://github.com/FARHAN-MIRAI-BOT/SIZIKA<]
+       ‎[>https://github.com/FARHAN-MIRAI-BOT/SIZUKA<]
 ╠══════════════════╣`;
 
       const imgUrl = "https://files.catbox.moe/0usiw5.jpg";
