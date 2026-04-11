@@ -7,7 +7,7 @@ module.exports = {
     name: "up",
     aliases: ["uptime", "upt"],
     version: "1.7",
-    author: "Azadx69x",
+    author: "MR_FARHAN",
     countDown: 5,
     role: 0,
     shortDescription: "Bot Status",
