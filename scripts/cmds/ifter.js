@@ -5,7 +5,7 @@ module.exports = {
     name: "ifter",
     aliases: ["roza", "ifter", "iftertime"],
     version: "2.0",
-    author: "xalman",
+    author: "FARHAN-KHAN",
     countDown: 5,
     role: 0,
     shortDescription: "Schedules for Sehri and Iftar based on city",
