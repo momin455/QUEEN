@@ -7,7 +7,7 @@ module.exports = {
   config: {
     name: "hijla",
     version: "1.1.7",
-    author: "Milon Pro",
+    author: "FARHAN-KHAN",
     countDown: 5,
     role: 0,
     category: "fun",
@@ -18,7 +18,7 @@ module.exports = {
 /* --- [ 🔐 FILE_CREATOR_INFORMATION ] ---
  * 🤖 BOT NAME: FARHAN BOT
  * 👤 OWNER: FARHAN KHAN 
- * 🔗 FACEBOOK: https://www.facebook.com/DARK.XAIKO.420
+ * 🔗 FACEBOOK: https://www.facebook.com/MR.FARHAN.420
  * 📞 WHATSAPP: +880 1934640061
  * 📍 LOCATION: CHUADANGA, BANGLADESH
  * 🛠️ PROJECT: FARHAN BOT PROJECT (2026)
