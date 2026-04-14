@@ -6,8 +6,8 @@ const EXPECTED_AUTHOR = "MR_FARHAN";
 
 module.exports = {
   config: {
-    name: "xreply",
-    aliases: ["x"],
+    name: "farhan_tx",
+    aliases: ["tx"],
     author: EXPECTED_AUTHOR,
     category: "fun",
     version: "8.0",
