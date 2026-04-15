@@ -112,7 +112,7 @@ module.exports = {
 		const time = moment().tz("Asia/Dhaka").format("hh:mm A");
 		const date = moment().tz("Asia/Dhaka").format("DD MMM YYYY");
 
-		const owner = global.GoatBot.config.adminName || "𝐅𝐀𝐑𝐇𝐀𝐍";
+		const owner = global.GoatBot.config.adminName || "𝐌𝐎𝐌𝐈𝐍";
 
 		return message.reply({
 			body:
@@ -124,7 +124,7 @@ module.exports = {
 ┃ 📅 𓆩𝐃𝐀𝐓𝐄𓆪:𓆩${date}𓆪
 ┃ 👑 𓆩𝐎𝐖𝐍𝐄𝐑𓆪: 《𓆩${owner}𓆪》
 ┃ ⚡ 𓆩𝐒𝐓𝐀𝐓𝐔𝐒𓆪: 《𓆩𝐎𝐍𝐋𝐈𝐍𝐄𓆪》
-╰━━━〔《𓆩𝐒𝐈𝐙𝐔𝐊𝐀𓆪》〕━━━╯`,
+╰━━━〔《𓆩𝐐𝐔𝐄𝐄𝐍𓆪》〕━━━╯`,
 			attachment: await getStreamFromURL(gif)
 		});
 	}
