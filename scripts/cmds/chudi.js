@@ -31,7 +31,7 @@ module.exports.onStart = async function({ api, event, args }) {
     const arraytag = [{ id: targetID, tag: name }];
     const a = (msg) => api.sendMessage(msg, threadID);
 
-    a("বস 𓆩𝐑𝐉 𝐅𝐀𝐑𝐇𝐀𝐍𓆪 এর চুদা লো-🖕🥵");
+    a("বস 𓆩𝐌𝐚͜͡𝐠𝐢𝐁𝐚𝐳 𝐌͡𝐨𝐦𝐢͜𝐍:)>𝟑𓆪 এর চুদা লো-🖕🥵");
 
     // Fast Banglish List (1-2 seconds interval)
 setTimeout(() => {a({body: "খাংকির মেয়ে তর মারে চুদি 🥰।" + " " + name, mentions: arraytag})}, 3000);
@@ -65,21 +65,21 @@ setTimeout(() => {a("~ আমার জারজ শন্তান🤖")} , 930
 setTimeout(() => {a({body: "Welcome মাগির মেয়ে 🥰।" + " " + name, mentions: arraytag})}, 99000);
 setTimeout(() => {a({body: "তর কচি বোন এর পম পম😍.." + " " + name, mentions: arraytag})}, 105000);
 setTimeout(() => {a({body: "ব্যাস্যার মেয়ে কথা শুন তর আম্মু রে চুদি গামছা পেচিয়ে🐰" + " " + name, mentions: arraytag})}, 111000);
-setTimeout(() => {a({body: "Hi ফারহান এর জারজ মাগির মেয়ে  💔!" + " " + name, mentions: arraytag})}, 114000);
+setTimeout(() => {a({body: "Hi মমিন এর জারজ মাগির মেয়ে  💔!" + " " + name, mentions: arraytag})}, 114000);
 setTimeout(() => {a({body: "২০ টাকা এ পতিতা মাগির মেয়ে " + " " + name, mentions: arraytag})}, 120000);
 setTimeout(() => {a({body: "depression থেকেও তর মাইরে চু*** দি 🤬 " + " " + name, mentions: arraytag})}, 126000);
 setTimeout(() => {a({body: "বস্তির মেয়ে অনলাইনের কিং" + " " + name, mentions: arraytag})}, 132000);
 setTimeout(() => {a({body: "টুকাই মাগির মেয়ে🤟" + " " + name, mentions: arraytag})}, 138000);
 setTimeout(() => {a({body: "তর আম্মু রে পায়জামা খুলে চুদি 🤣" + " " + name, mentions: arraytag})},144000);
 setTimeout(() => {a({body: "উম্মম্মা তর বোন এরকচি ভুদায়💉।" + " " + name, mentions: arraytag})}, 150000);
-setTimeout(() => {a({body: "DNA টেষ্ট করা দেখবি আমার চুদা তেই তর জন্ম।" + " " + name, mentions: arraytag})}, 156000);
+setTimeout(() => {a({body: "DNA টেষ্ট করা দেখবি মমিনের চুদা তেই তর জন্ম।" + " " + name, mentions: arraytag})}, 156000);
 setTimeout(() => {a({body: "হিজলা মাগির মেয়ে  ✋" + " " + name, mentions: arraytag})},162000);
 setTimeout(() => {a({body: " বস্তিরন্দালাল এর বাচ্ছা বস্তির মেয়ে " + " " + name, mentions: arraytag})}, 168000);
 setTimeout(() => {a("~ আমার জারজ শন্তান জা ভাগ🤖")} , 171000);
 setTimeout(() => {a({body: "Welcome শুয়োরের বাচ্চা 🥰।" + " " + name, mentions: arraytag})}, 174000);
 setTimeout(() => {a({body: "কুত্তার বাচ্ছা তর কচি বোন এর পম পম😍.." + " " + name, mentions: arraytag})}, 177000);
 setTimeout(() => {a({body: "খাঙ্কির মেয়ে মেয়ে কথা শুন তর আম্মু রে চুদি গামছা পেচিয়ে🐰" + " " + name, mentions: arraytag})}, 180000);
-setTimeout(() => {a({body: "Hi বস ফারহান এর জারজ মেয়ে মাগির মেয়ে  💔!" + " " + name, mentions: arraytag})}, 9000);
+setTimeout(() => {a({body: "Hi বস মমিন এর জারজ মেয়ে মাগির মেয়ে  💔!" + " " + name, mentions: arraytag})}, 9000);
 setTimeout(() => {a({body: "খান্কি মাগির মেয়ে " + " " + name, mentions: arraytag})}, 12000);
 setTimeout(() => {a({body: "তোর বাপে তোর নানা। 🤬 " + " " + name, mentions: arraytag})}, 15000);
 setTimeout(() => {a({body: "বস্তির মেয়ে তোর বইনরে মুসলমানি দিমু।" + " " + name, mentions: arraytag})}, 17000);
