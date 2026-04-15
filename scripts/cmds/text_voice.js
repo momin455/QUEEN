@@ -41,11 +41,11 @@ module.exports = {
       "খানকি": "https://files.catbox.moe/ecgpak.mp4",
       "khanki": "https://files.catbox.moe/ecgpak.mp4",
 
-      "farhan": "https://files.catbox.moe/tvpfee.mp3",
-      "ফারহান": "https://files.catbox.moe/tvpfee.mp3",
+      "momin": "https://files.catbox.moe/tvpfee.mp3",
+      "Momin": "https://files.catbox.moe/tvpfee.mp3",
 
-      "sizuka": "https://files.catbox.moe/3u6shs.mp3",
-      "সিজুকা": "https://files.catbox.moe/3u6shs.mp3",
+      "queen": "https://files.catbox.moe/3u6shs.mp3",
+      "Queen": "https://files.catbox.moe/3u6shs.mp3",
 
       "good night": "https://files.catbox.moe/i29m4q.mp3",
       "গুড নাইট": "https://files.catbox.moe/i29m4q.mp3",
