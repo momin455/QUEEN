@@ -21,7 +21,7 @@ module.exports = {
  
  ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆ 
   [🤖]↓:𝐁𝐎𝐓→𝐀𝐃𝐌𝐈𝐍:↓
-  ➤ 『 𝐑𝐉-𝐅𝐀𝐑𝐇𝐀𝐍 』
+  ➤ 『 𝐌𝐎𝐌𝐈𝐍-𝐕𝐀𝐈 』
  ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
 
 ╠══❖『𝐁𝐈𝐎 𝐀𝐃𝐌𝐈𝐍』❖══╣
@@ -34,7 +34,7 @@ module.exports = {
 ╠═════════════════╣
 
 [🏠]↓:𝐀𝐃𝐃𝐑𝐄𝐒𝐒:↓
-➤ 『 𝐂𝐇𝐔𝐀𝐃𝐀𝐍𝐆𝐀 』
+➤ 『 𝐊𝐔𝐑𝐈𝐆𝐑𝐀𝐌 』
 ‎
 ⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
 
@@ -59,13 +59,13 @@ module.exports = {
 ‎⋆✦⋆═══🅲🅾🅽🆃🅰🅲🆃═══⋆✦⋆
 
 [📞] 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣
-➤ https://wa.me/+8801934640061
+➤ https://wa.me/+8801624783416
 
 [🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❶)
-➤ https://m.me/MR.FARHAN.420
+➤ : https://www.facebook.com/profile.php?id=61583978867791
 
 [🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❷)
-➤ https://www.facebook.com/MR.FARHAN.420
+➤ : : https://www.facebook.com/profile.php?id=61583978867791
 
 ╚═══❖𝗧𝗛𝗔𝗡𝗞 𝗬𝗢𝗨❖═══╝`;
 
@@ -74,7 +74,7 @@ module.exports = {
 
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
 
-    const imgLink = "https://i.imgur.com/aeYswQs.jpeg";
+    const imgLink = "https://i.imgur.com/8KxRzR0.jpeg";
 
     const send = () => {
       api.sendMessage(
