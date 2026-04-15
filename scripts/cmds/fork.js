@@ -33,15 +33,15 @@ module.exports = {
 ‎    ╰•┄┅══❁♻️❁══┅┄•╯
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
 ‎╔══════════════════╗
-‎ 👉-এই নাও বস ফারহান এর\nɢɪᴛʜᴜʙ ᴀᴄᴄᴏᴜɴᴛ  লিংক ফলো \nকরে দিও-♻️👇
+‎ 👉-এই নাও বস মমিন এর\nɢɪᴛʜᴜʙ ᴀᴄᴄᴏᴜɴᴛ  লিংক ফলো \nকরে দিও-♻️👇
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
-       ‎[>https://github.com/FARHAN-MIRAI-BOT/SIZUKA<]
+       ‎[>https://github.com/tanu9644/Shanto.git<]
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
          ↓𓆩» 𝐆𝐎𝐀𝐓-𝐅𝐎𝐑𝐊 «𓆪↓
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆      https://github.com/FARHAN-MIRAI-BOT/GOAT
+‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆      https://github.com/tanu9644/Shanto.git
 ╠══════════════════╣`;
 
-      const imgUrl = "https://files.catbox.moe/0usiw5.jpg";
+      const imgUrl = "https://i.imgur.com/9IGhuq7.jpeg";
 
       const cacheDir = path.join(__dirname, "cache");
       const filePath = path.join(cacheDir, "fork.jpg");
