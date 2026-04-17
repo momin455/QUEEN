@@ -126,14 +126,14 @@ ctx.fillStyle = "#00ff00";
 ctx.fillText("● SYSTEM STATUS: ACTIVE", centerX, canvas.height - 65);
 ctx.font = "italic bold 18px Arial"; 
 ctx.fillStyle = "#FFD700"; 
-ctx.fillText("DEVELOPED BY:-FARHAN-KHAN", centerX, canvas.height - 95);
+ctx.fillText("DEVELOPED BY:-MOMIN-VAI", centerX, canvas.height - 95);
 
 // Bot Name & Date
 ctx.textAlign = "left";
 ctx.font = "bold 30px Arial";
 ctx.shadowColor = "#0000ff"; ctx.shadowBlur = 15;
 ctx.fillStyle = "#33ccff";
-ctx.fillText("[SIZUKA-BOT]", 199, 128); 
+ctx.fillText("[QUEEN-BOT]", 199, 128); 
 
 const dateX = centerX + 82;
 const dateY = 120; 
