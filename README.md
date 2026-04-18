@@ -1,17 +1,17 @@
 <!-- 🔥 NEON BANNER -->
 <p align="center">
-  <img src="https://i.imgur.com/hL3z57w.gif" width="100%">
+  <img src="https://i.imgur.com/j2eRdkE.jpeg" width="100%">
 </p>
 
 <!-- 🔥 TITLE -->
 <h1 align="center">
   <img src="./dashboard/images/logo-non-bg.png" width="28px">
-  𓆩𝐌𝐑-𝐅𝐀𝐑𝐇𝐀𝐍𓆪 𝗠𝗘𝗦𝗦𝗘𝗡𝗚𝗘𝗥 𝗖𝗛𝗔𝗧 𝗕𝗢𝗧
+  𓆩𝐌𝐑-𝐌𝐎𝐌𝐈𝐍𓆪 𝗠𝗘𝗦𝗦𝗘𝗡𝗚𝗘𝗥 𝗖𝗛𝗔𝗧 𝗕𝗢𝗧
 </h1>
 
 <!-- 🔥 BADGE -->
 <p align="center">
-  <img src="https://img.shields.io/badge/𝐈%20𝐀𝐌%20𝐅𝐀𝐑𝐇𝐀𝐍-𝐁𝐀𝐍𝐆𝐋𝐀𝐃𝐄𝐒𝐇𝐈%20𝐍𝐎𝐎𝐁%20𝐏𝐑𝐎𝐆𝐑𝐀𝐌𝐌𝐄𝐑-ff0000?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/𝐈%20𝐀𝐌%20𝐌𝐎𝐌𝐈𝐍-𝐁𝐀𝐍𝐆𝐋𝐀𝐃𝐄𝐒𝐇𝐈%20𝐍𝐎𝐎𝐁%20𝐏𝐑𝐎𝐆𝐑𝐀𝐌𝐌𝐄𝐑-ff0000?style=for-the-badge&logo=github&logoColor=white">
 </p>
 
 <!-- 🔥 WELCOME -->
@@ -25,7 +25,7 @@
 
 <!-- 🔥 TYPING -->
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?color=00FF00&size=28&center=true&vCenter=true&width=600&lines=𝐈+𝐀𝐌+𝐈𝐍𝐍𝐎𝐂𝐄𝐍𝐓+𝐁𝐎𝐘;𝐈𝐓'𝐒+𝐍𝐎𝐓+𝐉𝐔𝐒𝐓+𝐀+𝐍𝐀𝐌𝐄+𝐁𝐑𝐎;𝐅𝐀𝐑𝐇𝐀𝐍+𝐈𝐒+𝐓𝐇𝐄+𝐁𝐑𝐀𝐍𝐃;𝐓𝐇𝐀𝐍𝐊+𝐘𝐎𝐔+𝐄𝐕𝐄𝐑𝐘𝐎𝐍𝐄;𝐋𝐎𝐕𝐄+𝐘𝐎𝐔+𝐀𝐋𝐋+𝐅𝐑𝐈𝐄𝐍𝐃𝐒">
+  <img src="https://readme-typing-svg.herokuapp.com?color=00FF00&size=28&center=true&vCenter=true&width=600&lines=𝐈+𝐀𝐌+𝐈𝐍𝐍𝐎𝐂𝐄𝐍𝐓+𝐁𝐎𝐘;𝐈𝐓'𝐒+𝐍𝐎𝐓+𝐉𝐔𝐒𝐓+𝐀+𝐍𝐀𝐌𝐄+𝐁𝐑𝐎;𝐌𝐎𝐌𝐈𝐍+𝐈𝐒+𝐓𝐇𝐄+𝐁𝐑𝐀𝐍𝐃;𝐓𝐇𝐀𝐍𝐊+𝐘𝐎𝐔+𝐄𝐕𝐄𝐑𝐘𝐎𝐍𝐄;𝐋𝐎𝐕𝐄+𝐘𝐎𝐔+𝐀𝐋𝐋+𝐅𝐑𝐈𝐄𝐍𝐃𝐒">
 </p>
 
 ---
@@ -53,7 +53,7 @@
 ## 🔥 𝐒𝐓𝐑𝐄𝐀𝐊 𝐒𝐓𝐀𝐓𝐒
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=FARHAN-MIRAI-BOT&theme=dark&background=000000&ring=ff0000&fire=ff9900&currStreakLabel=00ff00&sideLabels=ffffff&dates=ffffff">
+  <img src="https://streak-stats.demolab.com?user=MOMIN-MIRAI-BOT&theme=dark&background=000000&ring=ff0000&fire=ff9900&currStreakLabel=00ff00&sideLabels=ffffff&dates=ffffff">
 </p>
 
 ---
@@ -61,7 +61,7 @@
 ## 📈 𝐀𝐂𝐓𝐈𝐕𝐈𝐓𝐘 𝐆𝐑𝐀𝐏𝐇
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=FARHAN-MIRAI-BOT&bg_color=000000&color=00ff00&line=00ffff&point=ff0000&area=true&hide_border=true">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=MOMIN-MIRAI-BOT&bg_color=000000&color=00ff00&line=00ffff&point=ff0000&area=true&hide_border=true">
 </p>
 
 ---
@@ -70,9 +70,9 @@
 
 ### 𝐀 𝐏𝐀𝐒𝐒𝐈𝐎𝐍𝐀𝐓𝐄 𝐅𝐑𝐎𝐍𝐓𝐄𝐍𝐃 𝐃𝐄𝐕𝐄𝐋𝐎𝐏𝐄 𝐅𝐑𝐎𝐌 𝐁𝐀𝐍𝐆𝐋𝐀𝐃𝐄𝐒𝐇
 ______________________________________
-- ➪ 𝐍𝐀𝐌𝐄 : 𓆩𝐃𝐄𝐕𝐈𝐋-𝐅𝐀𝐑𝐇𝐀𝐍𓆪  
+- ➪ 𝐍𝐀𝐌𝐄 : 𓆩𝐒𝐄𝐗𝐘-𝐌𝐎𝐌𝐈𝐍𓆪  
 - ➪ 𝐑𝐄𝐋𝐈𝐆𝐈𝐎𝐍 : 𝐈𝐒𝐋𝐀𝐌  
-- ➪ 𝐀𝐃𝐃𝐑𝐄𝐒𝐒 : 𝐂𝐇𝐔𝐀𝐃𝐀𝐍𝐆𝐀  
+- ➪ 𝐀𝐃𝐃𝐑𝐄𝐒𝐒 : 𝐊𝐔𝐑𝐈𝐆𝐑𝐀𝐌  
 - ➪ 𝐄𝐃𝐔𝐂𝐀𝐓𝐈𝐎𝐍 : 𝐒𝐓𝐔𝐃𝐄𝐍𝐓  
 - ➪ 𝐑𝐄𝐋𝐀𝐓𝐈𝐎𝐍𝐒𝐇𝐈𝐏 : 𝐒𝐈𝐍𝐆𝐋𝐄  
 
@@ -81,14 +81,14 @@ ______________________________________
 ## 📞 𝐂𝐎𝐍𝐓𝐀𝐂𝐓 𝐌𝐄
 
 ### 🔵 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊
-<a href="https://www.facebook.com/MR.FARHAN.420">
+<a href="https://www.facebook.com/profile.php?id=61587947897924">
 <img src="https://img.shields.io/badge/Facebook-ff0000?style=for-the-badge&logo=facebook&logoColor=white">
 </a>
 
 ---
 
 ### 🟢 𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏
-<a href="https://wa.me/8801934640061">
+<a href="https://wa.me/8801624783416">
 <img src="https://img.shields.io/badge/WhatsApp-00ff00?style=for-the-badge&logo=whatsapp&logoColor=black">
 </a>
 
@@ -100,16 +100,16 @@ ______________________________________
 <img width="30px" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg">
 </a>
 
-<a href="https://www.facebook.com/MR.FARHAN.420">
+<a href="https:https://www.facebook.com/profile.php?id=61587947897924">
 <img width="30px" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg">
 </a>
 
-<a href="https://www.instagram.com/mr_farhan.420">
-<img width="30px" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg">
+<a href="https://www.instagram.com/〲Ϝɱz᭄卝 Momin࿐一ཐི༏ཋྀ࿐">
+<img width="30px" src="https://raw.githubusercontent.com/rahuldkjain/gitgithub-profile-readme-generatorster/src/images/icons/Social/instagram.svg">
 </a>
 
 ---
 
-<h2 align="center">𝐅𝐀𝐑𝐇𝐀𝐍 𝐈𝐒 𝐍𝐎𝐓 𝐀 𓆩𝐍𝐀𝐌𝐄𓆪 
+<h2 align="center">𝐌𝐎𝐌𝐈𝐍 𝐈𝐒 𝐍𝐎𝐓 𝐀 𓆩𝐍𝐀𝐌𝐄𓆪 
   
    😈 𝐈𝐓'𝐒 𝐀 𝐁𝐑𝐀𝐍𝐃 😈</h2>
