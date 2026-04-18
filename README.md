@@ -45,7 +45,7 @@
 ## 📊 𝐆𝐈𝐓𝐇𝐔𝐁 𝐒𝐓𝐀𝐓𝐒
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=MOMIN-MIRAI-BOT&show_icons=true&theme=tokyonight&bg_color=000000&title_color=00ffff&icon_color=ff00ff&text_color=ffffff">
+  <img src="https://github-readme-stats.vercel.app/api?username=FARHAN-MIRAI-BOT&show_icons=true&theme=tokyonight&bg_color=000000&title_color=00ffff&icon_color=ff00ff&text_color=ffffff">
 </p>
 
 ---
