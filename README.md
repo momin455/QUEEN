@@ -61,7 +61,7 @@
 ## 📈 𝐀𝐂𝐓𝐈𝐕𝐈𝐓𝐘 𝐆𝐑𝐀𝐏𝐇
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=MOMIN-MIRAI-BOT&bg_color=000000&color=00ff00&line=00ffff&point=ff0000&area=true&hide_border=true">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=FARHAN-MIRAI-BOT&bg_color=000000&color=00ff00&line=00ffff&point=ff0000&area=true&hide_border=true">
 </p>
 
 ---
