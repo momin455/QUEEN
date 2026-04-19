@@ -16,11 +16,11 @@ module.exports = {
   },
 
 /* --- [ 🔐 INTERNAL_SECURE_METADATA ] ---
- * 🤖 BOT NAME: FARHAN BOT
- * 👤 OWNER: FARHAN KHAN 
- * 🔗 FACEBOOK: https://www.facebook.com/MR.FARHAN.420
- * 📞 WHATSAPP: +880 1934640061
- * 📍 LOCATION: KHULNA - CHUADANGA, BD
+ * 🤖 BOT NAME: 𝐐𝐔𝐄𝐄𝐍 𝐁𝐎𝐓
+ * 👤 OWNER: 𝐌𝐎𝐌𝐈𝐍-𝐕𝐀𝐈
+ * 🔗 FACEBOOK: https://www.facebook.com/profile.php?id=61583978867791
+ * 📞 WHATSAPP: +880 1624783416
+ * 📍 LOCATION: 𝐊𝐔𝐑𝐈𝐆𝐑𝐀𝐌 - 𝐍𝐀𝐓𝐇𝐀𝐍 𝐁𝐀𝐑𝐈, BD
  * --------------------------------------- */
 
   onStart: async function ({ api, event, message }) {
