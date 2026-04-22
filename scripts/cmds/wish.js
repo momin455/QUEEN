@@ -1,3 +1,5 @@
+📄 | Source code of "wish.js":
+
 const axios = require("axios");
 const fs = require("fs-extra");
 const { loadImage, createCanvas } = require("canvas");
