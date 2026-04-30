@@ -1,86 +1,89 @@
-const fs = require("fs-extra");
+📄 | Source code of "rakib.js":
+
+const axios = require("axios");
+
+let videoIndex = 0;
 
 module.exports = {
   config: {
-    name: "farhan_mention",
-    version: "7.0.0",
-    author: "Farhan-Khan", // ⚠️ এটা change করলে bot বন্ধ হয়ে যাবে
+    name: "adminmention",
+    version: "21.0.0",
+    author: "Farhan-Khan",
     countDown: 0,
     role: 0,
-    shortDescription: "Admin mention reply styled",
+    shortDescription: "Fast caption + video reply",
     category: "system"
   },
 
   onStart: async function () {},
 
   onChat: async function ({ event, message }) {
+    // 🔒 Author lock
+    if (this.config.author !== "Farhan-Khan") return;
 
-    // 🔒 AUTHOR LOCK
-    if (this.config.author !== "Farhan-Khan") {
-      console.log("⚠️ Author changed! Module stopped.");
-      return;
-    }
-
-    // 👑 ADMINS
     const admins = [
-      {
-        uid: "661583025494010",
-        names: ["ONIK▁▁▁▁╱╱🙁😈🪽"]
-      },
-      {
-        uid: "61583978867791",
-        names: ["〲Ϝɱz᭄卝 Momin࿐一ཐི༏ཋྀ࿐"]
-      }
+      { uid: "61583978867791", names: ["〲Ϝɱz᭄卝 Momin࿐一ཐི༏ཋྀ࿐"] },
+      { uid: "661583025494010", names: ["ONIK▁▁▁▁╱╱🙁😈🪽"] }
     ];
 
     const senderID = String(event.senderID);
-
-    // ❌ Admin নিজে লিখলে reply দিবে না
     if (admins.some(a => a.uid === senderID)) return;
 
-    const text = (event.body || "").toLowerCase().trim();
+    const text = (event.body || "").toLowerCase();
     const mentionedIDs = event.mentions ? Object.keys(event.mentions) : [];
 
-    // 🔍 MENTION DETECT
     const isMentioning = admins.some(admin =>
       mentionedIDs.includes(admin.uid) ||
-      text.includes(admin.uid) ||
       admin.names.some(name => text.includes(name.toLowerCase()))
     );
 
     if (!isMentioning) return;
 
-    // 💬 RAW CAPTIONS
-    const captions = [
-      "Mantion_দিস না _মমিন বস এর মন মন ভালো নেই আস্কে-!💔🥀",
-      "- আমার বস মমিন এর সাথে কেউ সেক্স করে না থুক্কু টেক্স করে নাহ🫂💔",
-      "👉আমার বস ♻️ মমিন এখন বিজি আছে । তার ইনবক্সে এ মেসেজ দিয়ে রাখো 🔰 ♪√বস ফ্রি হলে আসবে🧡😁😜🐒",
-      "বস মমিন কে এত মেনশন না দিয়ে বক্স আসো হট করে দিবো🤷‍ঝাং 😘🥒",
-      "বস মমিন কে Mantion_দিলে চুম্মাইয়া ঠুটের কালার change কইরা,লামু 💋😾😾🔨",
-      "মমিন বস এখন বিজি জা বলার আমাকে বলতে পারেন_!!😼🥰",
-      "মমিন বস কে এতো মেনশন নাহ দিয়া বস কে একটা জি এফ দে 😒 😏",
-      "Mantion_না দিয়ে বস মমিন এর সাথে সিরিয়াস প্রেম করতে চাইলে ইনবক্স",
-      "বস মমিন কে মেনশন দিসনা পারলে একটা জি এফ দে",
-      "বাল পাকনা Mantion_দিস না বস মমিন প্রচুর বিজি আছে 🥵🥀🤐",
-      "চুমু খাওয়ার বয়স টা আমার বস মমিন চকলেট🍫খেয়ে উড়িয়ে দিল 🤗"
+    // 🎬 Video list
+    const videos = [
+      "https://files.catbox.moe/q3mjt2.mp4"
+      "https://files.catbox.moe/pqlni2.mp4"
     ];
 
-    const formatCaption = (text) => {
-      return `
-━━━━━━━━━━━━━━━━━━━━
-- ${text}
-━━━━━━━━━━━━━━━━━━━━`;
-    };
+    const videoUrl = videos[videoIndex];
+    videoIndex = (videoIndex + 1) % videos.length;
 
-    const rawCaption = captions[Math.floor(Math.random() * captions.length)];
-    const styledCaption = formatCaption(rawCaption);
+    // ✍️ captions
+    const captions = [
+      "Mantion_দিস না _MOMIN বস এর মন ভালো নেই আজকে 💔🥀",
+      "আমার বস momin এখন বিজি আছে 😒",
+      "বস ফ্রি হলে রিপ্লাই দিবে 🧡😁",
+      "বস কে এত মেনশন না দিয়ে ইনবক্স আসো 😏",
+      "MOMIN বস এখন বিজি, যা বলার আমাকে বলো 😼",
+      "মেনশন না দিয়ে বস কে একটা জি এফ দে 😑"
+    ];
+
+    const mentionNames = mentionedIDs.map(id => `@${id}`).join(", ");
+
+    const caption = `
+✿•≫───────────────≪•✿
+『 ${captions[Math.floor(Math.random() * captions.length)]} 』
+✿•≫───────────────≪•✿
+`;
 
     try {
-      await message.reply({
-        body: styledCaption
+      // ⚡ Fast Video Fetch
+      const videoStream = await axios({
+        url: videoUrl,
+        method: "GET",
+        responseType: "stream",
+        timeout: 10000,
+        headers: { "User-Agent": "Mozilla/5.0" }
       });
+
+      await message.reply({
+        body: caption,
+        attachment: videoStream.data
+      });
+
     } catch (err) {
-      console.log("Error sending admin reply:", err);
+      console.log("❌ Video error:", err.message);
+      await message.reply("😢 ভিডিও দিতে পারলাম না");
     }
   }
 };
