@@ -33,14 +33,14 @@ const last = {};
 // =======================
 const TRIGGERS = [
   {
-    words: ["মমিন", "মিশরান", "momin ", "Momin"],
-    text: "👉আমার বস♻️ 𝐌𝐚͜͡𝐠𝐢𝐁𝐚𝐳 𝐌͡𝐨𝐦𝐢͜𝐍:)>𝟑 এখন বিজি আছে । তার ইনবক্সে এ মেসেজ দিয়ে রাখো ‎‎‎‎‎‎‎‎‎[https://www.facebook.com/profile.php?id=61587947897924] 🔰 ♪√বস ফ্রি হলে আসবে,! 😜🐒",
+    words: ["মমিন", "onik", "momin ", "Momin"],
+    text: "👉আমার বস♻️ 𝐌𝐚͜͡𝐠𝐢𝐁𝐚𝐳 𝐌͡𝐨𝐦𝐢͜𝐍:)>𝟑 এখন বিজি আছে । তার ইনবক্সে এ মেসেজ দিয়ে রাখো ‎‎‎‎‎‎‎‎‎[https://www.facebook.com/profile.php?id=61583978867791] 🔰 ♪√বস ফ্রি হলে আসবে,! 😜🐒",
     images: [
-      "https://i.imgur.com/hMHlBVn.jpeg"
+      "https://i.imgur.com/NHuJmeu.jpeg"
     ]
   },
   {
-    words: ["@Alex queen", "@alex queen", "@Alex queen"],
+    words: ["@রাশি্ঁয়ান কুইন্ঁ", "@alex queen", "@Alex queen"],
     text: "-আমাকে মেনশন দিয়ে লাভ নাই- কারণ আমি একটা মেসেঞ্জার চ্যাট রোবট,🤖 আমাকে বানানো হয়েছে শুধুমাত্র আপনাদেরকে বিনোদনের জন্য, আমাকে বানিয়েছেন আমার বস momin-😽🫶 [https://www.facebook.com/profile.php?id=61587947897924,!🌺",
     images: [
       "https://i.imgur.com/GQgOU9C.jpeg",
