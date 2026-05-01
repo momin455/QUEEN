@@ -33,15 +33,15 @@ module.exports = {
 ‎    ╰•┄┅══❁♻️❁══┅┄•╯
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
 ‎╔══════════════════╗
-‎ 👉-এই নাও বস মমিন এর\nɢɪᴛʜᴜʙ ᴀᴄᴄᴏᴜɴᴛ  লিংক ফলো \nকরে দিও-♻️👇
+‎ 👉-এই নাও বস ফারহান এর\nɢɪᴛʜᴜʙ ᴀᴄᴄᴏᴜɴᴛ  লিংক ফলো \nকরে দিও-♻️👇
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
-       ‎[>https://github.com/momin455/QUEEN<]
+       ‎[>https://github.com/FARHAN-MIRAI-BOT/SIZUKA<]
 ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
          ↓𓆩» 𝐆𝐎𝐀𝐓-𝐅𝐎𝐑𝐊 «𓆪↓
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆      https://github.com/momin455/QUEEN.git
+‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆      https://github.com/FARHAN-MIRAI-BOT/GOAT
 ╠══════════════════╣`;
 
-      const imgUrl = "https://i.imgur.com/lHEMUCw.jpeg";
+      const imgUrl = "https://files.catbox.moe/0usiw5.jpg";
 
       const cacheDir = path.join(__dirname, "cache");
       const filePath = path.join(cacheDir, "fork.jpg");
