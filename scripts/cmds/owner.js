@@ -1,95 +1,154 @@
-const fs = require("fs-extra");
-const request = require("request");
+const moment = require("moment-timezone");
+const axios = require("axios");
+const fs = require("fs");
 const path = require("path");
 
 module.exports = {
   config: {
     name: "owner",
-    version: "1.3.0",
-    author: "Farhan-Khan",
+    aliases: ["admin", "intro", "contact"],
+    version: "4.0.0",
+    author: "MR_FARHAN",
     role: 0,
-    shortDescription: "Owner information with image",
-    category: "Information",
-    guide: {
-      en: "owner"
-    }
+    countDown: 5,
+    shortDescription: {
+      en: "Owner Information"
+    },
+    category: "owner"
   },
 
-  onStart: async function ({ api, event }) {
-    const ownerText = 
-`╔═══❖𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢❖═══╗
- 
- ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆ 
-  [🤖]↓:𝐁𝐎𝐓→𝐀𝐃𝐌𝐈𝐍:↓
-  ➤ 『 𝐌𝐎𝐌𝐈𝐍-𝐕𝐀𝐈 』
- ‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+  onStart: async function ({ api, event, usersData, threadsData, message }) {
+    try {
 
-╠══❖『𝐁𝐈𝐎 𝐀𝐃𝐌𝐈𝐍』❖══╣
- ⊱༅༎😽💚༅༎⊱
+      // ===== OWNER INFO =====
+      const ownerName = "MOMIN-VAI";
+      const ownerNick = "MOMIN";
+      const ownerAge = "20+";
+      const ownerFrom = "KURIGRAM";
+      const ownerUID = "61589173862019";
 
--আমি ভদ্র, বেয়াদব দুটোই 🥱✌️  
--তুমি যেটা ডি'জার্ভ করো, আমি সেটাই দেখাবো 💯 
+      // ===== CONTACT =====
+      const facebook = "https://www.facebook.com/profile.php?id=61589173862019";
+      const whatsapp = "wa.me/01624783416";
+      const telegram = "t.me/momineditor";
+      const youtube = "https://www.youtube.com/@oa-py1ef";
 
-  ⊱༅༎😽💚༅༎⊱
-╠═════════════════╣
+      // ===== BOT INFO =====
+      const botName = global.GoatBot?.config?.nickNameBot || "‎—͟͟͞͞★ 𝐒ᴇxʏ 𝐐ᴜᴇᴇɴ   ⸙  ❶❷:)>𝟑♡";
+      const prefix = global.GoatBot?.config?.prefix || "/";
+      const totalCommands = global.GoatBot?.commands?.size || 0;
 
-[🏠]↓:𝐀𝐃𝐃𝐑𝐄𝐒𝐒:↓
-➤ 『 𝐊𝐔𝐑𝐈𝐆𝐑𝐀𝐌 』
-‎
-⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+      // ===== USERS & GROUPS =====
+      const allUsers = await usersData.getAll();
+      const allThreads = await threadsData.getAll();
 
-[🕋]↓:𝐑𝐄𝐋𝐈𝐆𝐈𝐎𝐍:↓
-➤ 『 𝐈𝐒𝐋𝐀𝐌 』
+      const totalUsers = allUsers.length;
+      const totalGroups = allThreads.length;
 
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+      // ===== UPTIME =====
+      const uptime = process.uptime();
 
-[🚻]↓:𝐆𝐄𝐍𝐃𝐄𝐑:↓
-➤ 『 𝐌𝐀𝐋𝐄 』
+      const days = Math.floor(uptime / 86400);
+      const hours = Math.floor((uptime % 86400) / 3600);
+      const minutes = Math.floor((uptime % 3600) / 60);
+      const seconds = Math.floor(uptime % 60);
 
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+      const uptimeText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-[💞]↓:𝐑𝐄𝐋𝐀𝐓𝐈𝐎𝐍𝐒𝐇𝐈𝐏:↓
-➤ 『 𝐒𝐈𝐍𝐆𝐋𝐄 』
+      // ===== TIME =====
+      const now = moment().tz("Asia/Dhaka");
+      const time = now.format("hh:mm:ss A");
+      const date = now.format("DD/MM/YYYY");
 
-‎⋆✦⋆⎯⎯⎯⎯⎯⎯⎯⎯⎯⋆✦⋆
+      // ===== CACHE =====
+      const cacheDir = path.join(__dirname, "cache");
 
-[🧑‍🔧]↓:𝐖𝐎𝐑𝐊:↓
-➤ 『 𝐉𝐎𝐁 』
+      if (!fs.existsSync(cacheDir)) {
+        fs.mkdirSync(cacheDir, { recursive: true });
+      }
 
-‎⋆✦⋆═══🅲🅾🅽🆃🅰🅲🆃═══⋆✦⋆
+      const videoPath = path.join(cacheDir, "owner.mp4");
 
-[📞] 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣
-➤ https://wa.me/+8801624783416
+      // ===== VIDEO URL =====
+      const videoUrl = "https://files.catbox.moe/9c9wdz.mp4";
 
-[🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❶)
-➤ : https://www.facebook.com/profile.php?id=61583978867791
+      // ===== DOWNLOAD VIDEO =====
+      const response = await axios({
+        url: videoUrl,
+        method: "GET",
+        responseType: "stream"
+      });
 
-[🌍] 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 𝐈𝐃 (❷)
-➤ : : https://www.facebook.com/profile.php?id=61583978867791
+      const writer = fs.createWriteStream(videoPath);
 
-╚═══❖𝗧𝗛𝗔𝗡𝗞 𝗬𝗢𝗨❖═══╝`;
+      response.data.pipe(writer);
 
-    const cacheDir = path.join(__dirname, "cache");
-    const imgPath = path.join(cacheDir, "owner.jpg");
+      await new Promise((resolve, reject) => {
+        writer.on("finish", resolve);
+        writer.on("error", reject);
+      });
 
-    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+      // ===== MESSAGE =====
+      const msg = `
+╔═══✦══════════✦═══╗
+║  🤖「 𝐎𝐖𝐍𝐄𝐑 𝐏𝐀𝐍𝐄𝐋 」🤖 ║         
+╚═══✦══════════✦═══╝
 
-    const imgLink = "https://i.imgur.com/8KxRzR0.jpeg";
+┏━━━━━━━━━━━━━━━━━━┓
+┃ 👑 𝙽𝙰𝙼𝙴: ${ownerName}
+┃ 💎 𝙽𝙸𝙲𝙺: ${ownerNick}
+┃ 🎂 𝙰𝙶𝙴: ${ownerAge}
+┃ 📍 𝙵𝚁𝙾𝙼: ${ownerFrom}
+┃ 🆔 𝚄𝙸𝙳: ${ownerUID}
+┃ 🟢 𝙰𝙲𝚃𝙸𝚅𝙴「 24/7 」
+┗━━━━━━━━━━━━━━━━━━┛
 
-    const send = () => {
-      api.sendMessage(
-        {
-          body: ownerText,
-          attachment: fs.createReadStream(imgPath)
-        },
-        event.threadID,
-        () => fs.unlinkSync(imgPath),
-        event.messageID
-      );
-    };
+╭──── 📱 𝙲𝙾𝙽𝚃𝙰𝙲𝚃 𝙼𝙴 ────╮
+│ 🌐 𝙵𝙰𝙲𝙴𝙱𝙾𝙾𝙺
+│ └─ ${facebook}
+│ 💬 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿
+│ └─ ${whatsapp}
+│ ✈️ 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼
+│ └─ ${telegram}
+│ ▶️ 𝚈𝙾𝚄𝚃𝚄𝙱𝙴
+│ └─ ${youtube}
+╰───────────────────╯
 
-    request(encodeURI(imgLink))
-      .pipe(fs.createWriteStream(imgPath))
-      .on("close", send)
+╭─── 🤖 𝙱𝙾𝚃 𝙳𝙴𝚃𝙰𝙸𝙻𝚂 ───╮
+│ ⚡ 𝙽𝙰𝙼𝙴: ${botName}
+│ ⏰ 𝚄𝙿𝚃𝙸𝙼𝙴: ${uptimeText}
+│ 👥 𝚄𝚂𝙴𝚁𝚂:「 ${totalUsers} 」
+│ 💬 𝙶𝚁𝙾𝚄𝙿𝚂:「 ${totalGroups} 」
+│ 📦 𝙲𝙼𝙳𝚂:「 ${totalCommands} 」
+│ 🔰 𝙿𝚁𝙴𝙵𝙸𝚇:「 ${prefix} 」
+╰───────────────────╯
+
+╭───── 📅 𝚃𝙸𝙼𝙴 ─────╮
+│ 🗓️ 𝙳𝙰𝚃𝙴: ${date}
+│ ⏰ 𝚃𝙸𝙼𝙴: ${time}
+╰────────────────╯
+
+╔═══✦══════════✦═══╗
+║   💝 𝚃𝙷𝙰𝙽𝙺𝚂 𝙵𝙾𝚁 𝚄𝚂𝙸𝙽𝙶 💝  ║
+╚═══✦══════════✦═══╝
+`;
+
+      await message.reply({
+        body: msg,
+        attachment: fs.createReadStream(videoPath)
+      });
+
+      // ===== DELETE VIDEO =====
+      setTimeout(() => {
+        if (fs.existsSync(videoPath)) {
+          fs.unlinkSync(videoPath);
+        }
+      }, 10000);
+
+    } catch (err) {
+      console.log(err);
+
+      return message.reply("❌ | Owner command error.");
+    }
   }
 };
